@@ -12,16 +12,14 @@ export async function checkRNC(rnc) {
 
     await page.open(url);
     await page.evaluate(function (rnc) {
-        document.getElementById("cphMain_txtRNCCedula")?.setAttribute("value", rnc);
-        document.getElementById("cphMain_btnBuscarPorRNC")?.click();
+        document.getElementById("cphMain_txtRNCCedula").setAttribute("value", rnc);
+        document.getElementById("cphMain_btnBuscarPorRNC").click();
     }, rnc);
 
     timeout(1500);
 
     const result = await page.evaluate(function () {
-        const informacion = document
-            .getElementsByTagName("tbody")
-            ?.item(0)?.innerText;
+        const informacion = document.getElementsByTagName("tbody").item(0).innerText;
         return informacion;
     });
 

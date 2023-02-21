@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkRNC } from "./CheckRNC";
+import { checkRNC } from "./CheckRNC.js";
 
 const AppRouter = Router();
 
@@ -14,9 +14,10 @@ AppRouter.get('/api/checkRNC/:rnc', async (req, res, next) => {
         const splitInformation = response.split('\n');
 
         return res.status(200).json({
-            rnc: splitInformation[0].split('-').join(""),
+            rnc: splitInformation[1].split('-').join(""),
             socialName: splitInformation[3],
-            comercialName: splitInformation[5]
+            comercialName: splitInformation[5],
+            status: splitInformation[10]
         })
     }
 
