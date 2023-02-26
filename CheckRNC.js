@@ -33,7 +33,6 @@ export async function checkRNC(rnc) {
 } */
 
 import puppeteer from "puppeteer"
-import chromium from "chromium";
 
 export const checkRNC = async (rnc) => {
 
@@ -41,9 +40,9 @@ export const checkRNC = async (rnc) => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: false,
-            executablePath: chromium.path,
-            args: ['--no-sandbox']
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            ignoreDefaultArgs: ['--disable-extensions']
         });
         const page = await browser.newPage();
         await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36");
