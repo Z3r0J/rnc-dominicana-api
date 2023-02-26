@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "phantom": "^6.3.0",
-    "phantomjs": "^1.9.20"
+    "phantomjs": "^1.9.20",
+    "phantomjs-prebuilt": "^2.1.16"
   }
 }
