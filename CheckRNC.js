@@ -1,4 +1,4 @@
-import { create } from "phantom";
+/* import { create } from "phantom";
 const url =
     "https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/rnc.aspx#razonsocial";
 
@@ -30,4 +30,37 @@ export async function checkRNC(rnc) {
     } catch (error) {
         return error;
     }
+} */
+
+import puppeteer from "puppeteer"
+import chromium from "chromium";
+
+export const checkRNC = async (rnc) => {
+
+    const url = "https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/rnc.aspx";
+
+    try {
+        const browser = await puppeteer.launch({
+            headless: false, executablePath: chromium.path
+        });
+        const page = await browser.newPage();
+        await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36");
+
+        await page.goto(url);
+
+        await page.evaluate(function (rnc) {
+            document.getElementById("cphMain_txtRNCCedula").setAttribute("value", rnc);
+            document.getElementById("cphMain_btnBuscarPorRNC").click();
+        }, rnc);
+
+        const res = await page.waitForSelector('tbody').then(async (e) => await e.getProperty("innerText"));
+
+        await browser.close();
+
+        return res.jsonValue();
+
+    } catch (error) {
+        console.log(error);
+    }
+
 }
