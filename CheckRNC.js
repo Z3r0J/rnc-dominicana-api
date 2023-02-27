@@ -54,7 +54,7 @@ export const checkRNC = async (rnc) => {
             document.getElementById("cphMain_btnBuscarPorRNC").click();
         }, rnc);
 
-        const res = await page.waitForSelector('tbody').then(async (e) => await e.getProperty("innerText"));
+        const res = await page.waitForSelector('tbody', { timeout: 3000 }).then(async (e) => await e.getProperty("innerText"));
 
         await browser.close();
 
