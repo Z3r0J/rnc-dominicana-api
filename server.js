@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5147;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(AppRouter);
-app.use(cors());
+app.use(cors({ origin: ['*', "http://localhost:5173"], methods: "GET,HEAD,PUT,PATCH,POST,DELETE", }));
 
 app.listen(PORT);
 
