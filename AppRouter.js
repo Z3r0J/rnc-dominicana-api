@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { checkRNC } from "./CheckRNC.js";
 import { cleanData } from "./helper.js";
+import cors from 'cors';
 
 const AppRouter = Router();
 
-AppRouter.get('/', (req, res, next) => { return res.status(403).json({ error: "You cannot belong here" }) });
+AppRouter.get('/', cors(), (req, res, next) => { return res.status(403).json({ error: "You cannot belong here" }) });
 
 AppRouter.get('/api/checkRNC/:rnc', async (req, res, next) => {
     const rnc = req.params.rnc;
